@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Fichas - Royal Casino</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <style>
+        .shop-container {
+            padding: 50px 10%;
+            text-align: center;
+        }
+        .shop-title {
+            font-size: 3rem;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+        }
+        .packages {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .package-card {
+            background: var(--surface-color);
+            padding: 40px 30px;
+            border-radius: 20px;
+            width: 300px;
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5), 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+        .package-card.popular::before {
+            content: 'Más Popular';
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: var(--primary-color);
+            color: #000;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .package-chips {
+            font-size: 2.5rem;
+            font-family: var(--font-heading);
+            color: white;
+            margin-bottom: 10px;
+        }
+        .package-price {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+        .balance-box {
+            background: rgba(11, 12, 16, 0.8);
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 30px;
+            margin-bottom: 40px;
+            border: 1px solid var(--primary-color);
+        }
+        .balance-box span {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html"><h1>Royal<span>Casino</span></h1></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="juego.html">Juegos</a></li>
+                <li><a href="tienda.html" class="active">Fichas</a></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <a href="login.html" class="btn btn-secondary">Iniciar Sesión</a>
+            <a href="registro.html" class="btn btn-primary">Registrarse</a>
+        </div>
+    </header>
+
+    <main class="shop-container">
+        <h2 class="shop-title">Adquiere tus Fichas</h2>
+        
+        <div class="balance-box">
+            Saldo actual: <span id="current-balance">1000</span> Fichas
+        </div>
+
+        <div class="packages">
+            <div class="package-card">
+                <div class="package-chips">500 Fichas</div>
+                <div class="package-price">5.00 €</div>
+                <button class="btn btn-secondary" onclick="comprarFichas(500)">Comprar</button>
+            </div>
+            
+            <div class="package-card popular">
+                <div class="package-chips">2000 Fichas</div>
+                <div class="package-price">18.00 €</div>
+                <button class="btn btn-primary" onclick="comprarFichas(2000)">Comprar</button>
+            </div>
+            
+            <div class="package-card">
+                <div class="package-chips">5000 Fichas</div>
+                <div class="package-price">40.00 €</div>
+                <button class="btn btn-secondary" onclick="comprarFichas(5000)">Comprar</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/tienda.js"></script>
+</body>
+</html>

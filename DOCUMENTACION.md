@@ -17,5 +17,21 @@ Este proyecto consiste en el desarrollo de una aplicación web que simula un cas
 - **Driver JDBC:** Se ha integrado el driver `mysql-connector-j-8.2.0.jar` en la carpeta `backend/lib` para su posterior uso en la conexión con Java.
 - **Frontend Inicial:** Se ha diseñado la página principal (`index.html`) y la hoja de estilos (`style.css`), estableciendo un diseño "premium" en tonos oscuros y dorados utilizando Flexbox y animaciones de CSS para la experiencia de usuario.
 
-### Fase 2: (En proceso)
-*Se documentará a medida que avancemos con el resto de pantallas y la integración de Java.*
+### Fase 2 y 3: Diseño e Implementación del Frontend (Tienda y Juego)
+**Fecha:** 23 de Abril de 2026
+
+- **Sistema de Tienda (`tienda.html` y `tienda.js`):**
+  - Interfaz de usuario para la simulación de compra de fichas mediante distintos paquetes de pago.
+  - Lógica JavaScript que suma las fichas adquiridas y guarda el estado en `localStorage` (`casino_balance`) para mantener persistencia temporal a nivel de navegador antes de integrarlo con la base de datos real.
+
+- **Juego: Ruleta Europea (`juego.html`, `roulette.css` y `roulette.js`):**
+  - **Diseño del Tapete:** Implementado mediante `CSS Grid` avanzado para estructurar correctamente las zonas de apuestas (plenos, docenas, mitades, columnas) respetando los colores y el layout de los casinos reales.
+  - **Ruleta Visual:** Creada usando CSS Puro con gradientes cónicos y animaciones (`@keyframes spin`) para emular el giro de la rueda al iniciar una partida.
+  - **Lógica de Apuestas:** 
+    - Selección dinámica del valor de la ficha (5, 25, 100, 500).
+    - Colocación de fichas sobre el tapete, verificando que el saldo sea suficiente.
+    - Resolución de apuestas basada en las normativas estándar de la Ruleta Europea (ganancias de 35 a 1 para plenos, 2 a 1 para docenas/columnas y 1 a 1 para suertes sencillas).
+    - Actualización dinámica del saldo post-partida.
+
+### Fase 4: (En proceso)
+*Se documentará a medida que implementemos el servidor Java y la persistencia de datos definitiva.*
