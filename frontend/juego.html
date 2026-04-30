@@ -3,10 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ruleta Europea - Royal Casino</title>
+    <title>Juegos - Royal Casino</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/roulette.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <style>
+        .games-lobby {
+            padding: 50px 10%;
+            text-align: center;
+        }
+        .lobby-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        .lobby-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 50px;
+        }
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            justify-items: center;
+        }
+        .game-card {
+            background: var(--surface-color);
+            border-radius: 20px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 350px;
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            text-decoration: none;
+            color: var(--text-main);
+            display: block;
+        }
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5), 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+        .game-image {
+            height: 200px;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            border-bottom: 2px solid var(--primary-color);
+            position: relative;
+        }
+        /* Iconos CSS temporales para los juegos */
+        .icon-roulette {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: conic-gradient(#27ae60 0 25%, #c0392b 25% 50%, #27ae60 50% 75%, #111 75% 100%);
+            border: 5px solid #d4af37;
+        }
+        .icon-cards {
+            display: flex;
+            gap: -10px;
+        }
+        .card {
+            width: 60px;
+            height: 90px;
+            background: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c0392b;
+            font-size: 2rem;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        .card:nth-child(2) {
+            transform: rotate(15deg) translateX(-20px);
+            color: #111;
+            z-index: 2;
+        }
+        .icon-slots {
+            display: flex;
+            gap: 10px;
+            background: #222;
+            padding: 10px;
+            border-radius: 10px;
+            border: 3px solid #d4af37;
+        }
+        .slot-reel {
+            width: 40px;
+            height: 60px;
+            background: white;
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .game-info {
+            padding: 25px;
+            text-align: left;
+        }
+        .game-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        .game-info p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .play-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+
+        .coming-soon {
+            position: absolute;
+            top: 15px;
+            right: -35px;
+            background: #e74c3c;
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 10;
+        }
+        .card-disabled {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+        .card-disabled .play-btn {
+            background-color: transparent;
+            border-color: #555;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
     <header class="navbar">
@@ -21,79 +159,73 @@
             </ul>
         </nav>
         <div class="user-actions">
-            <div class="balance-display">Saldo: <span id="player-balance">1000</span></div>
+            <div class="balance-display" style="color: var(--primary-color); font-weight: bold; padding: 10px;">
+                Saldo: <span id="lobby-balance">1000</span>
+            </div>
+            <a href="login.html" class="btn btn-secondary">Iniciar Sesión</a>
         </div>
     </header>
 
-    <main class="game-container">
-        <!-- Visualización de la Ruleta y el Resultado -->
-        <div class="roulette-display">
-            <div class="wheel-container">
-                <div id="wheel" class="wheel"></div>
-                <div class="ball"></div>
-            </div>
-            <div class="result-display">
-                <h3>Resultado</h3>
-                <div id="last-result" class="result-number green">0</div>
-                <p id="game-message">Hagan sus apuestas</p>
-            </div>
-        </div>
+    <main class="games-lobby">
+        <h2 class="lobby-title">Sala de Juegos</h2>
+        <p class="lobby-subtitle">Elige tu mesa y demuestra tu suerte.</p>
 
-        <!-- Panel de Control y Fichas -->
-        <div class="controls-panel">
-            <div class="chip-selector">
-                <div class="bet-chip active" data-value="5">5</div>
-                <div class="bet-chip" data-value="25">25</div>
-                <div class="bet-chip" data-value="100">100</div>
-                <div class="bet-chip" data-value="500">500</div>
-            </div>
-            <div class="action-buttons">
-                <button id="btn-clear" class="btn btn-secondary">Limpiar Mesa</button>
-                <button id="btn-spin" class="btn btn-primary">Girar Ruleta</button>
-            </div>
-        </div>
-
-        <!-- Tablero de Apuestas -->
-        <div class="betting-board">
-            <div class="board-inner">
-                <!-- El número 0 -->
-                <div class="bet-spot spot-0 green" data-bet="0">0</div>
-                
-                <!-- Números del 1 al 36 (Generados por JS o hardcodeados para layout) -->
-                <div class="numbers-grid" id="numbers-grid">
-                    <!-- Fila 3: 3, 6, 9... -->
-                    <!-- Fila 2: 2, 5, 8... -->
-                    <!-- Fila 1: 1, 4, 7... -->
+        <div class="games-grid">
+            <!-- Tarjeta Ruleta -->
+            <a href="ruleta.html" class="game-card">
+                <div class="game-image">
+                    <div class="icon-roulette"></div>
                 </div>
-                
-                <!-- Apuestas de 2 a 1 (Columnas) -->
-                <div class="column-bets">
-                    <div class="bet-spot col-bet" data-bet="col3">2:1</div>
-                    <div class="bet-spot col-bet" data-bet="col2">2:1</div>
-                    <div class="bet-spot col-bet" data-bet="col1">2:1</div>
+                <div class="game-info">
+                    <h3>Ruleta Europea</h3>
+                    <p>Siente la adrenalina con la clásica ruleta de un solo cero. Haz tus apuestas y gira la rueda.</p>
+                    <span class="btn btn-primary play-btn">Jugar Ahora</span>
                 </div>
+            </a>
 
-                <!-- Apuestas Externas (Docenas y Suertes sencillas) -->
-                <div class="outside-bets">
-                    <div class="dozens">
-                        <div class="bet-spot dozen" data-bet="1st12">1st 12</div>
-                        <div class="bet-spot dozen" data-bet="2nd12">2nd 12</div>
-                        <div class="bet-spot dozen" data-bet="3rd12">3rd 12</div>
-                    </div>
-                    <div class="halves">
-                        <div class="bet-spot half" data-bet="1to18">1 to 18</div>
-                        <div class="bet-spot half" data-bet="even">EVEN</div>
-                        <div class="bet-spot half red-diamond" data-bet="red"><div class="diamond red"></div></div>
-                        <div class="bet-spot half black-diamond" data-bet="black"><div class="diamond black"></div></div>
-                        <div class="bet-spot half" data-bet="odd">ODD</div>
-                        <div class="bet-spot half" data-bet="19to36">19 to 36</div>
+            <!-- Tarjeta Blackjack (Próximamente) -->
+            <div class="game-card card-disabled">
+                <div class="game-image">
+                    <div class="coming-soon">Próximamente</div>
+                    <div class="icon-cards">
+                        <div class="card">A♥</div>
+                        <div class="card">J♠</div>
                     </div>
                 </div>
+                <div class="game-info">
+                    <h3>Blackjack</h3>
+                    <p>Enfréntate al crupier e intenta llegar a 21 sin pasarte. El clásico juego de cartas.</p>
+                    <span class="btn btn-secondary play-btn">En desarrollo</span>
+                </div>
             </div>
+
+            <!-- Tarjeta Tragaperras -->
+            <a href="slots.html" class="game-card">
+                <div class="game-image">
+                    <div class="icon-slots">
+                        <div class="slot-reel">7</div>
+                        <div class="slot-reel">7</div>
+                        <div class="slot-reel">7</div>
+                    </div>
+                </div>
+                <div class="game-info">
+                    <h3>Tragaperras Clásica</h3>
+                    <p>Alinea los símbolos para ganar el bote acumulado. Rápido, divertido y lleno de premios.</p>
+                    <span class="btn btn-primary play-btn">Jugar Ahora</span>
+                </div>
+            </a>
         </div>
-        <div id="current-bet-info">Apuesta Total: <span id="total-bet-amount">0</span></div>
     </main>
 
-    <script src="js/roulette.js"></script>
+    <script>
+        // Sincronizar saldo en el lobby
+        document.addEventListener('DOMContentLoaded', () => {
+            const balanceElement = document.getElementById('lobby-balance');
+            const savedBalance = localStorage.getItem('casino_balance');
+            if (savedBalance) {
+                balanceElement.textContent = savedBalance;
+            }
+        });
+    </script>
 </body>
 </html>

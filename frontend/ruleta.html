@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruleta Europea - Royal Casino</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/roulette.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html"><h1>Royal<span>Casino</span></h1></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="juego.html" class="active">Juegos</a></li>
+                <li><a href="tienda.html">Fichas</a></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <div class="balance-display">Saldo: <span id="player-balance">1000</span></div>
+        </div>
+    </header>
+
+    <main class="game-container">
+        <!-- Visualización de la Ruleta y el Resultado -->
+        <div class="roulette-display">
+            <div class="wheel-container">
+                <div id="wheel" class="wheel"></div>
+                <div class="ball"></div>
+            </div>
+            <div class="result-display">
+                <h3>Resultado</h3>
+                <div id="last-result" class="result-number green">0</div>
+                <p id="game-message">Hagan sus apuestas</p>
+            </div>
+        </div>
+
+        <!-- Panel de Control y Fichas -->
+        <div class="controls-panel">
+            <div class="chip-selector">
+                <div class="bet-chip active" data-value="5">5</div>
+                <div class="bet-chip" data-value="25">25</div>
+                <div class="bet-chip" data-value="100">100</div>
+                <div class="bet-chip" data-value="500">500</div>
+            </div>
+            <div class="action-buttons">
+                <button id="btn-clear" class="btn btn-secondary">Limpiar Mesa</button>
+                <button id="btn-repeat" class="btn btn-secondary">Repetir Apuesta</button>
+                <button id="btn-spin" class="btn btn-primary">Girar Ruleta</button>
+            </div>
+        </div>
+
+        <!-- Tablero de Apuestas -->
+        <div class="betting-board">
+            <div class="board-inner">
+                <!-- El número 0 -->
+                <div class="bet-spot spot-0 green" data-bet="0">0</div>
+                
+                <!-- Números del 1 al 36 (Generados por JS o hardcodeados para layout) -->
+                <div class="numbers-grid" id="numbers-grid">
+                    <!-- Fila 3: 3, 6, 9... -->
+                    <!-- Fila 2: 2, 5, 8... -->
+                    <!-- Fila 1: 1, 4, 7... -->
+                </div>
+                
+                <!-- Apuestas de 2 a 1 (Columnas) -->
+                <div class="column-bets">
+                    <div class="bet-spot col-bet" data-bet="col3">2:1</div>
+                    <div class="bet-spot col-bet" data-bet="col2">2:1</div>
+                    <div class="bet-spot col-bet" data-bet="col1">2:1</div>
+                </div>
+
+                <!-- Apuestas Externas (Docenas y Suertes sencillas) -->
+                <div class="outside-bets">
+                    <div class="dozens">
+                        <div class="bet-spot dozen" data-bet="1st12">1st 12</div>
+                        <div class="bet-spot dozen" data-bet="2nd12">2nd 12</div>
+                        <div class="bet-spot dozen" data-bet="3rd12">3rd 12</div>
+                    </div>
+                    <div class="halves">
+                        <div class="bet-spot half" data-bet="1to18">1 to 18</div>
+                        <div class="bet-spot half" data-bet="even">EVEN</div>
+                        <div class="bet-spot half red-diamond" data-bet="red"><div class="diamond red"></div></div>
+                        <div class="bet-spot half black-diamond" data-bet="black"><div class="diamond black"></div></div>
+                        <div class="bet-spot half" data-bet="odd">ODD</div>
+                        <div class="bet-spot half" data-bet="19to36">19 to 36</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="current-bet-info">Apuesta Total: <span id="total-bet-amount">0</span></div>
+    </main>
+
+    <script src="js/roulette.js"></script>
+</body>
+</html>

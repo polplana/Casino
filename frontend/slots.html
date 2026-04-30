@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tragaperras Clásica - Royal Casino</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/slots.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html"><h1>Royal<span>Casino</span></h1></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="juego.html" class="active">Juegos</a></li>
+                <li><a href="tienda.html">Fichas</a></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <div class="balance-display">Saldo: <span id="player-balance">1000</span></div>
+        </div>
+    </header>
+
+    <main class="game-container">
+        <div class="slots-header">
+            <h2>Tragaperras Clásica</h2>
+            <p>Combina 3 símbolos iguales para ganar el premio grande.</p>
+        </div>
+
+        <div class="slot-machine">
+            <div class="payline"></div>
+            <div class="reels-container">
+                <div class="reel" id="reel1">
+                    <div class="symbol">🍒</div>
+                </div>
+                <div class="reel" id="reel2">
+                    <div class="symbol">🍋</div>
+                </div>
+                <div class="reel" id="reel3">
+                    <div class="symbol">7️⃣</div>
+                </div>
+            </div>
+            <div class="machine-message">
+                <p id="game-message">¡Haz tu apuesta y tira!</p>
+            </div>
+        </div>
+
+        <div class="controls-panel">
+            <div class="bet-controls">
+                <button id="btn-bet-minus" class="btn btn-secondary bet-btn">-</button>
+                <div class="current-bet">Apuesta: <span id="bet-amount">10</span></div>
+                <button id="btn-bet-plus" class="btn btn-secondary bet-btn">+</button>
+            </div>
+            <div class="action-buttons">
+                <button id="btn-spin" class="btn btn-primary btn-large">TIRAR</button>
+            </div>
+        </div>
+        
+        <div class="payout-table">
+            <h3>Tabla de Premios</h3>
+            <ul>
+                <li>3x 7️⃣ = Apuesta x100</li>
+                <li>3x 💎 = Apuesta x50</li>
+                <li>3x 🔔 = Apuesta x25</li>
+                <li>3x 🍇 = Apuesta x15</li>
+                <li>3x 🍉 = Apuesta x10</li>
+                <li>3x 🍋 = Apuesta x5</li>
+                <li>3x 🍒 = Apuesta x5</li>
+                <li>2x Iguales = Apuesta x1</li>
+            </ul>
+        </div>
+    </main>
+
+    <script src="js/slots.js"></script>
+</body>
+</html>

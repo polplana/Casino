@@ -8,6 +8,7 @@ const blackNumbers = [2,4,6,8,10,11,13,15,17,20,22,24,26,28,29,31,33,35];
 let balance = 1000;
 let currentChipValue = 5;
 let currentBets = {}; // formato: { "spot_id": total_apostado }
+let previousBets = null;
 let totalBetAmount = 0;
 let isSpinning = false;
 
@@ -22,13 +23,42 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     updateBalanceDisplay();
 
+    drawCSSWheel();
     generateNumbersGrid();
+    generateComplexBets();
     setupChipSelection();
     setupBettingSpots();
     
     document.getElementById('btn-clear').addEventListener('click', clearBets);
+    document.getElementById('btn-repeat').addEventListener('click', repeatBet);
     document.getElementById('btn-spin').addEventListener('click', spinWheel);
 });
+
+function drawCSSWheel() {
+    const wheel = document.getElementById('wheel');
+    const slices = 37;
+    const sliceAngle = 360 / slices;
+    
+    // Secuencia exacta de la ruleta europea
+    const sequence = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26];
+    
+    let gradient = 'conic-gradient(';
+    for (let i = 0; i < slices; i++) {
+        const num = sequence[i];
+        let color = '#111'; 
+        if (num === 0) color = '#27ae60'; 
+        else if (redNumbers.includes(num)) color = '#c0392b'; 
+        
+        const startAngle = i * sliceAngle;
+        const endAngle = (i + 1) * sliceAngle;
+        gradient += `${color} ${startAngle}deg ${endAngle}deg`;
+        if (i < slices - 1) gradient += ', ';
+    }
+    gradient += ')';
+    
+    wheel.style.background = gradient;
+    wheel.innerHTML = '<div class="wheel-inner"></div>';
+}
 
 function generateNumbersGrid() {
     const grid = document.getElementById('numbers-grid');
@@ -52,6 +82,58 @@ function generateNumbersGrid() {
         spot.textContent = num;
         grid.appendChild(spot);
     });
+}
+
+function generateComplexBets() {
+    const grid = document.getElementById('numbers-grid');
+    
+    // El grid tiene 12 columnas y 3 filas. Usamos porcentajes para posicionar hitboxes.
+    const colStep = 100 / 12; 
+    const rowStep = 100 / 3; 
+    
+    const createHitbox = (betIds, x, y) => {
+        const hb = document.createElement('div');
+        hb.className = 'bet-spot complex-bet-spot';
+        hb.dataset.bet = betIds.join(',');
+        hb.style.left = `calc(${x}% - 10px)`;
+        hb.style.top = `calc(${y}% - 10px)`;
+        grid.appendChild(hb);
+    };
+
+    const getNum = (c, r) => {
+        if (r === 0) return 3 + 3*c;
+        if (r === 1) return 2 + 3*c;
+        if (r === 2) return 1 + 3*c;
+    };
+
+    // 1. Caballos Verticales
+    for (let c = 0; c < 11; c++) {
+        for (let r = 0; r < 3; r++) {
+            const num1 = getNum(c, r);
+            const num2 = getNum(c+1, r);
+            createHitbox([num1, num2], (c+1)*colStep, r*rowStep + rowStep/2);
+        }
+    }
+    
+    // 2. Caballos Horizontales
+    for (let c = 0; c < 12; c++) {
+        for (let r = 0; r < 2; r++) {
+            const num1 = getNum(c, r);
+            const num2 = getNum(c, r+1);
+            createHitbox([num1, num2], c*colStep + colStep/2, (r+1)*rowStep);
+        }
+    }
+    
+    // 3. Cuadros
+    for (let c = 0; c < 11; c++) {
+        for (let r = 0; r < 2; r++) {
+            const numTopLeft = getNum(c, r);
+            const numBotLeft = getNum(c, r+1);
+            const numTopRight = getNum(c+1, r);
+            const numBotRight = getNum(c+1, r+1);
+            createHitbox([numTopLeft, numBotLeft, numTopRight, numBotRight], (c+1)*colStep, (r+1)*rowStep);
+        }
+    }
 }
 
 function getColor(number) {
@@ -147,6 +229,7 @@ function spinWheel() {
         return;
     }
     
+    previousBets = { ...currentBets };
     isSpinning = true;
     document.getElementById('game-message').textContent = "No va más...";
     
@@ -197,8 +280,19 @@ function resolveBets(winningNumber) {
     const isOdd = winningNumber !== 0 && winningNumber % 2 !== 0;
     
     for (const [betId, amount] of Object.entries(currentBets)) {
+        // Apuestas complejas (caballos, cuadros)
+        if (betId.includes(',')) {
+            const betNumbers = betId.split(',').map(n => parseInt(n));
+            if (betNumbers.includes(winningNumber)) {
+                // Pago proporcional a la cantidad de números
+                // Caballo (2 núms) paga 17 a 1 -> multiplicador de 18
+                // Cuadro (4 núms) paga 8 a 1 -> multiplicador de 9
+                const payoutRatio = 36 / betNumbers.length; 
+                winnings += amount * payoutRatio;
+            }
+        }
         // Apuesta a número exacto (Pleno - 35 a 1)
-        if (!isNaN(betId) && parseInt(betId) === winningNumber) {
+        else if (!isNaN(betId) && parseInt(betId) === winningNumber) {
             winnings += amount * 36; // Devuelve apuesta (1) + ganancia (35)
         }
         // Colores (1 a 1)
@@ -227,5 +321,37 @@ function resolveBets(winningNumber) {
         updateBalanceDisplay();
     } else {
         // Mensaje de pérdida (opcional)
+    }
+}
+
+function repeatBet() {
+    if (isSpinning || !previousBets) return;
+    
+    let previousTotal = 0;
+    for (let amount of Object.values(previousBets)) {
+        previousTotal += amount;
+    }
+    
+    if (previousTotal === 0) return;
+    
+    if (balance < previousTotal) {
+        alert("¡No tienes suficientes fichas para repetir la apuesta!");
+        return;
+    }
+    
+    clearBets();
+    
+    balance -= previousTotal;
+    totalBetAmount = previousTotal;
+    document.getElementById('total-bet-amount').textContent = totalBetAmount;
+    updateBalanceDisplay();
+    
+    currentBets = { ...previousBets };
+    
+    for (const [betId, amount] of Object.entries(currentBets)) {
+        const spotElement = document.querySelector(`.bet-spot[data-bet="${betId}"]`);
+        if (spotElement) {
+            renderChipOnSpot(spotElement, amount);
+        }
     }
 }

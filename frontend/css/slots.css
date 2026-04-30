@@ -1,0 +1,216 @@
+/* Estilos para Tragaperras Clásica */
+
+.game-container {
+    padding: 40px 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.slots-header {
+    text-align: center;
+}
+
+.slots-header h2 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.slots-header p {
+    color: var(--text-muted);
+}
+
+/* La Máquina */
+.slot-machine {
+    background: linear-gradient(145deg, #1f2833, #0b0c10);
+    border: 4px solid var(--primary-color);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(212, 175, 55, 0.2);
+    position: relative;
+    max-width: 600px;
+    width: 100%;
+}
+
+.payline {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    right: 10px;
+    height: 4px;
+    background: rgba(255, 0, 0, 0.6);
+    box-shadow: 0 0 10px red;
+    z-index: 10;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.reels-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: inset 0 10px 20px rgba(0,0,0,0.5);
+    height: 150px;
+    overflow: hidden;
+}
+
+.reel {
+    flex: 1;
+    background: #f4f4f4;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    position: relative;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.2);
+}
+
+.symbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 100px;
+    /* transition is applied dynamically via JS for spinning */
+}
+
+.spinning .symbol {
+    animation: spin-blur 0.1s linear infinite;
+}
+
+@keyframes spin-blur {
+    0% { transform: translateY(-50px); filter: blur(2px); opacity: 0.5; }
+    50% { transform: translateY(0px); filter: blur(4px); opacity: 1; }
+    100% { transform: translateY(50px); filter: blur(2px); opacity: 0.5; }
+}
+
+/* Win Animation */
+.win-animation {
+    animation: pulse-gold 1s infinite alternate;
+}
+
+@keyframes pulse-gold {
+    from { box-shadow: 0 0 10px var(--primary-color), inset 0 0 20px rgba(212, 175, 55, 0.2); }
+    to { box-shadow: 0 0 30px var(--primary-color), inset 0 0 40px rgba(212, 175, 55, 0.5); }
+}
+
+.machine-message {
+    margin-top: 20px;
+    text-align: center;
+    background: #111;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid var(--primary-color);
+}
+
+#game-message {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.2rem;
+    color: #0f0;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-shadow: 0 0 5px #0f0;
+}
+
+/* Controles */
+.controls-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.bet-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    background: var(--surface-color);
+    padding: 15px;
+    border-radius: 30px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.bet-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    padding: 0;
+}
+
+.current-bet {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    min-width: 150px;
+    text-align: center;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+#btn-spin {
+    width: 100%;
+    max-width: 300px;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+}
+
+/* Tabla de Premios */
+.payout-table {
+    background: var(--surface-color);
+    padding: 20px 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    width: 100%;
+    max-width: 600px;
+}
+
+.payout-table h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.payout-table ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.payout-table li {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 5px;
+}
+
+@media (max-width: 600px) {
+    .payout-table ul {
+        grid-template-columns: 1fr;
+    }
+    
+    .reels-container {
+        height: 120px;
+    }
+    
+    .reel {
+        font-size: 3rem;
+    }
+}
