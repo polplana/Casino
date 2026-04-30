@@ -1,0 +1,283 @@
+/* Estilos para Blackjack */
+
+.game-container {
+    padding: 30px 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    min-height: calc(100vh - 80px);
+}
+
+/* Mesa de Blackjack */
+.blackjack-table {
+    background: radial-gradient(ellipse at center, #1a5c2a, #0d3518);
+    border: 6px solid var(--primary-color);
+    border-radius: 200px / 100px;
+    padding: 40px 60px;
+    width: 100%;
+    max-width: 850px;
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.8), inset 0 0 80px rgba(0,0,0,0.4), 0 0 30px rgba(212, 175, 55, 0.2);
+    position: relative;
+}
+
+/* Zonas de Cartas */
+.dealer-zone, .player-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.score-display {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(0, 0, 0, 0.5);
+    padding: 5px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(212, 175, 55, 0.4);
+}
+
+.score-display span {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.cards-container {
+    display: flex;
+    gap: 10px;
+    min-height: 120px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Centro de la mesa */
+.table-center {
+    text-align: center;
+    padding: 10px;
+}
+
+.table-center h2 {
+    font-size: 1.6rem;
+    color: var(--primary-color);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    transition: all 0.3s ease;
+}
+
+/* Cartas */
+.playing-card {
+    width: 80px;
+    height: 115px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+    position: relative;
+    animation: deal-card 0.4s ease-out;
+    transition: transform 0.2s;
+}
+
+.playing-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-front {
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    border: 2px solid #ccc;
+}
+
+.card-back {
+    background: repeating-linear-gradient(
+        45deg,
+        #1a3a8a,
+        #1a3a8a 5px,
+        #1e4296 5px,
+        #1e4296 10px
+    );
+    border: 3px solid var(--primary-color);
+}
+
+.card-back::after {
+    content: '♠';
+    font-size: 2rem;
+    color: var(--primary-color);
+    text-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+}
+
+/* Colores de los palos */
+.card-red {
+    color: #c0392b;
+}
+
+.card-black {
+    color: #1a1a2e;
+}
+
+/* Layout de la carta */
+.card-corner {
+    position: absolute;
+    top: 5px;
+    left: 7px;
+    font-size: 0.8rem;
+    line-height: 1;
+    text-align: center;
+}
+
+.card-corner-bottom {
+    position: absolute;
+    bottom: 5px;
+    right: 7px;
+    font-size: 0.8rem;
+    line-height: 1;
+    text-align: center;
+    transform: rotate(180deg);
+}
+
+.card-center {
+    font-size: 2.5rem;
+}
+
+/* Animación de reparto */
+@keyframes deal-card {
+    from {
+        opacity: 0;
+        transform: translateY(-80px) rotate(-10deg) scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg) scale(1);
+    }
+}
+
+/* Animación de carta al descubrirla */
+@keyframes flip-card {
+    0% { transform: scaleX(1); }
+    50% { transform: scaleX(0); }
+    100% { transform: scaleX(1); }
+}
+
+.card-flip {
+    animation: flip-card 0.5s ease-in-out;
+}
+
+/* Panel de Controles */
+.controls-panel {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 850px;
+}
+
+.control-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    background: var(--surface-color);
+    padding: 15px 25px;
+    border-radius: 30px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    width: 100%;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Botones de apuesta */
+.bet-btn {
+    min-width: 55px;
+    font-size: 1rem;
+}
+
+.bet-btn.selected {
+    background-color: var(--primary-color);
+    color: #000;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+#btn-deal {
+    min-width: 160px;
+    font-size: 1rem;
+}
+
+#btn-hit, #btn-stand {
+    min-width: 140px;
+    font-size: 1.1rem;
+    padding: 12px 28px;
+}
+
+#btn-new-game {
+    min-width: 200px;
+    font-size: 1.1rem;
+    padding: 12px 28px;
+}
+
+/* Mensajes de resultado */
+.msg-win {
+    color: #2ecc71 !important;
+    text-shadow: 0 0 15px rgba(46, 204, 113, 0.5) !important;
+}
+
+.msg-lose {
+    color: #e74c3c !important;
+    text-shadow: 0 0 15px rgba(231, 76, 60, 0.5) !important;
+}
+
+.msg-push {
+    color: #f39c12 !important;
+    text-shadow: 0 0 15px rgba(243, 156, 18, 0.5) !important;
+}
+
+.msg-blackjack {
+    color: var(--primary-color) !important;
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.8) !important;
+    font-size: 2.2rem !important;
+}
+
+/* Win glow sobre la mesa */
+.table-win {
+    animation: table-glow 1s infinite alternate;
+}
+
+@keyframes table-glow {
+    from { box-shadow: 0 20px 60px rgba(0,0,0,0.8), inset 0 0 80px rgba(0,0,0,0.4), 0 0 30px rgba(212, 175, 55, 0.2); }
+    to { box-shadow: 0 20px 60px rgba(0,0,0,0.8), inset 0 0 80px rgba(0,0,0,0.4), 0 0 50px rgba(46, 204, 113, 0.5); }
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+    .blackjack-table {
+        border-radius: 30px;
+        padding: 25px 20px;
+        min-height: 380px;
+    }
+
+    .playing-card {
+        width: 60px;
+        height: 90px;
+    }
+
+    .card-center {
+        font-size: 1.8rem;
+    }
+
+    .card-corner, .card-corner-bottom {
+        font-size: 0.65rem;
+    }
+
+    .table-center h2 {
+        font-size: 1.2rem;
+    }
+}

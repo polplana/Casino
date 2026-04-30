@@ -45,7 +45,7 @@ Este proyecto consiste en el desarrollo de una aplicación web que simula un cas
   - **Estructura y Estética:** Interfaz retro/premium manteniendo la paleta de colores del casino. Animaciones rápidas de desenfoque (`spin-blur`) para los rodillos y paradas escalonadas (1s, 1.5s, 2s).
   - **Lógica de Juego:** 
     - Selección de apuestas dinámicas (10, 25, 50, 100).
-    - 7 símbolos disponibles y tabla de premios ajustada para asegurar un RTP (Return to Player) balanceado cercano al 98%, protegiendo a la "banca" del casino.
+    - 5 símbolos disponibles y tabla de premios ajustada para asegurar un RTP (Return to Player) balanceado cercano al 96% (y un hit frequency de premio del 52% para mejorar la satisfacción del jugador).
     - Persistencia del saldo sincronizada de forma automática con el `localStorage` (`casino_balance`).
 
 ### Fase 5:

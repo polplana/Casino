@@ -22,13 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let isSpinning = false;
 
     // Símbolos y multiplicadores
-    const symbols = ['🍒', '🍋', '🍉', '🍇', '🔔', '💎', '7️⃣'];
+    const symbols = ['🍒', '🍋', '🔔', '💎', '7️⃣'];
     const multipliers = {
-        '7️⃣': 100,
-        '💎': 50,
-        '🔔': 25,
-        '🍇': 15,
-        '🍉': 10,
+        '7️⃣': 25,
+        '💎': 15,
+        '🔔': 10,
         '🍋': 5,
         '🍒': 5
     };

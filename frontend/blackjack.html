@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blackjack - Royal Casino</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/blackjack.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html"><h1>Royal<span>Casino</span></h1></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="juego.html" class="active">Juegos</a></li>
+                <li><a href="tienda.html">Fichas</a></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <div class="balance-display">Saldo: <span id="player-balance">1000</span></div>
+        </div>
+    </header>
+
+    <main class="game-container">
+        <div class="blackjack-table">
+            <!-- Zona del Crupier -->
+            <div class="dealer-zone">
+                <div class="score-display">Crupier: <span id="dealer-score">?</span></div>
+                <div class="cards-container" id="dealer-cards">
+                    <!-- Las cartas se generan aquí -->
+                </div>
+            </div>
+
+            <!-- Centro de la Mesa (Mensajes) -->
+            <div class="table-center">
+                <h2 id="game-message">Haz tu apuesta</h2>
+            </div>
+
+            <!-- Zona del Jugador -->
+            <div class="player-zone">
+                <div class="cards-container" id="player-cards">
+                    <!-- Las cartas se generan aquí -->
+                </div>
+                <div class="score-display">Jugador: <span id="player-score">0</span></div>
+            </div>
+        </div>
+
+        <!-- Panel de Controles -->
+        <div class="controls-panel">
+            <!-- Controles de Apuesta (Visibles antes de jugar) -->
+            <div id="betting-controls" class="control-group">
+                <button class="btn btn-secondary bet-btn" data-bet="10">10</button>
+                <button class="btn btn-secondary bet-btn" data-bet="25">25</button>
+                <button class="btn btn-secondary bet-btn" data-bet="50">50</button>
+                <button class="btn btn-secondary bet-btn" data-bet="100">100</button>
+                <button id="btn-deal" class="btn btn-primary" disabled>Repartir (<span id="current-bet">0</span>)</button>
+            </div>
+
+            <!-- Controles de Acción (Visibles durante la partida) -->
+            <div id="action-controls" class="control-group hidden">
+                <button id="btn-hit" class="btn btn-secondary">Pedir (Hit)</button>
+                <button id="btn-stand" class="btn btn-primary">Plantarse (Stand)</button>
+            </div>
+            
+            <!-- Controles de Fin de Partida -->
+            <div id="end-controls" class="control-group hidden">
+                <button id="btn-new-game" class="btn btn-primary">Nueva Partida</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/blackjack.js"></script>
+</body>
+</html>
