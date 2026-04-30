@@ -10,7 +10,7 @@ Este proyecto consiste en el desarrollo de una aplicación web que simula un cas
 ## Diario de Desarrollo
 
 ### Fase 1: Configuración Inicial e Infraestructura
-**Fecha:** 23 de Abril de 2026
+**Fecha:** 2 de Abril de 2026
 
 - **Estructura del Proyecto:** Se ha definido la jerarquía de carpetas separando `frontend`, `backend` y `database`.
 - **Base de Datos:** Se ha creado el archivo `docker-compose.yml` para levantar un servidor MySQL (versión 8.0) local de forma rápida y reproducible. Se han definido las credenciales iniciales (`casino_user` / `casino_password`) y una base de datos por defecto (`casino_db`).
@@ -18,7 +18,7 @@ Este proyecto consiste en el desarrollo de una aplicación web que simula un cas
 - **Frontend Inicial:** Se ha diseñado la página principal (`index.html`) y la hoja de estilos (`style.css`), estableciendo un diseño "premium" en tonos oscuros y dorados utilizando Flexbox y animaciones de CSS para la experiencia de usuario.
 
 ### Fase 2 y 3: Diseño e Implementación del Frontend (Tienda y Juego)
-**Fecha:** 23 de Abril de 2026
+**Fecha:** 16 de Abril de 2026
 
 - **Sistema de Tienda (`tienda.html` y `tienda.js`):**
   - Interfaz de usuario para la simulación de compra de fichas mediante distintos paquetes de pago.
